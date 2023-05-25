@@ -1,3 +1,5 @@
+// eslint-disable @typescript-eslint/no-explicit-any
+
 <script>
   // import Counter from './Counter.svelte';
   import { UserRestClient } from "../UserRestClient";

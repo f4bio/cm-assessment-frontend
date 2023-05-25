@@ -1,0 +1,15 @@
+{
+  "name": "CM Assessment (Svelte)",
+  "dockerFile": "Dockerfile",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "jamesbirtles.svelte-vscode"
+      ]
+    }
+  },
+  "forwardPorts": [
+    5000
+  ],
+  "postCreateCommand": "npm install"
+}

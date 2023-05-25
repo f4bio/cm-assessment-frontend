@@ -31,19 +31,22 @@
   onMount(async () => {
     // _prevUsers = users || [];
     try {
-      await client.insertItem({
-        name: faker.person.fullName(),
-        email: faker.internet.email(),
-        password: faker.internet.password(),
-        createdAt: faker.date.anytime().toISOString(),
-        updatedAt: faker.date.anytime().toISOString()
-      });
-
       users = await client.loadAllItems();
+
+      if (users.length < 10) {
+        const _newUser = await client.insertItem({
+          name: faker.person.fullName(),
+          email: faker.internet.email(),
+          password: faker.internet.password(),
+          createdAt: faker.date.anytime().toISOString(),
+          updatedAt: faker.date.anytime().toISOString(),
+        });
+        console.log(`Created new user '${_newUser.id}'`);
+      }
 
       console.log(users);
     } catch (error) {
-      console.warn(error);
+      console.error(error);
     }
   });
   // TODO
@@ -71,8 +74,7 @@
       bind:sortDirection
       on:SMUIDataTable:sorted={handleSort}
       table$aria-label="User list"
-      style="width: 100%;"
-    >
+      style="width: 100%;">
       <Head>
         <Row>
           <!--
@@ -95,16 +97,22 @@
             <!-- For non-numeric columns, icon comes second. -->
             <IconButton class="material-icons">arrow_upward</IconButton>
           </Cell>
-          <Cell columnId="username">
-            <Label>Username</Label>
+          <Cell columnId="password">
+            <Label>Password</Label>
             <IconButton class="material-icons">arrow_upward</IconButton>
           </Cell>
           <Cell columnId="email">
             <Label>Email</Label>
             <IconButton class="material-icons">arrow_upward</IconButton>
           </Cell>
-          <!-- You can turn off sorting for a column. -->
-          <Cell sortable={false}>Website</Cell>
+          <Cell columnId="createdAt">
+            <Label>createdAt</Label>
+            <IconButton class="material-icons">arrow_upward</IconButton>
+          </Cell>
+          <Cell columnId="updatedAt">
+            <Label>updatedAt</Label>
+            <IconButton class="material-icons">arrow_upward</IconButton>
+          </Cell>
         </Row>
       </Head>
       <Body>

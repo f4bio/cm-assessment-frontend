@@ -1,33 +1,33 @@
 <script>
   // import Counter from './Counter.svelte';
-
-  // import { User } from "../User";
   import { UserRestClient } from "../UserRestClient";
   import { onMount } from "svelte";
   import { faker } from "@faker-js/faker";
-  // import Button from "@smui/button";
+  import Time from "svelte-time";
+  import { Group, Label } from "@smui/button";
+  import Fab, { Icon } from "@smui/fab";
   import IconButton from "@smui/icon-button";
-  import DataTable, { Body, Cell, Head, Label, Row } from "@smui/data-table";
+  import DataTable, { Body, Cell, Head, Row } from "@smui/data-table";
 
   let sort = "id";
-  let sortDirection = "ascending";
+  let clicked = 0;
+  let sortDirection = undefined;
+  let users = [];
 
   function handleSort() {
-    users.sort((a, b) => {
+    users = users.sort((a, b) => {
       const [aVal, bVal] = [a[sort], b[sort]][
         sortDirection === "ascending" ? "slice" : "reverse"
-        ]();
+      ]();
       if (typeof aVal === "string" && typeof bVal === "string") {
         return aVal.localeCompare(bVal);
       }
       return Number(aVal) - Number(bVal);
     });
-    users = users;
   }
 
   const client = new UserRestClient("http://localhost:3000");
   // let _prevUsers: User[] = [];
-  let users = [];
   onMount(async () => {
     // _prevUsers = users || [];
     try {
@@ -60,12 +60,20 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+  <title>Home</title>
+  <meta name="description" content="Svelte demo app" />
 </svelte:head>
 
 <section>
   <h1>User management</h1>
+
+  <div class="flexy">
+    <div class="margins">
+      <Fab on:click={() => clicked++}>
+        <Icon class="material-icons">favorite</Icon>
+      </Fab>
+    </div>
+  </div>
 
   {#if users}
     <!--suppress HtmlRequiredTitleElement -->
@@ -74,7 +82,8 @@
       bind:sortDirection
       on:SMUIDataTable:sorted={handleSort}
       table$aria-label="User list"
-      style="width: 100%;">
+      style="width: 100%;"
+    >
       <Head>
         <Row>
           <!--
@@ -92,17 +101,16 @@
             <IconButton class="material-icons">arrow_upward</IconButton>
             <Label>ID</Label>
           </Cell>
-          <Cell columnId="name" style="width: 100%;">
+          <Cell columnId="name">
             <Label>Name</Label>
-            <!-- For non-numeric columns, icon comes second. -->
-            <IconButton class="material-icons">arrow_upward</IconButton>
-          </Cell>
-          <Cell columnId="password">
-            <Label>Password</Label>
             <IconButton class="material-icons">arrow_upward</IconButton>
           </Cell>
           <Cell columnId="email">
             <Label>Email</Label>
+            <IconButton class="material-icons">arrow_upward</IconButton>
+          </Cell>
+          <Cell columnId="password">
+            <Label>Password</Label>
             <IconButton class="material-icons">arrow_upward</IconButton>
           </Cell>
           <Cell columnId="createdAt">
@@ -113,31 +121,45 @@
             <Label>updatedAt</Label>
             <IconButton class="material-icons">arrow_upward</IconButton>
           </Cell>
+          <Cell>
+            <Label>Actions</Label>
+          </Cell>
         </Row>
       </Head>
       <Body>
-      {#each users as user (user.id)}
-        <Row>
-          <Cell numeric>{user.id}</Cell>
-          <Cell>{user.name}</Cell>
-          <Cell>{user.email}</Cell>
-          <Cell>{user.password}</Cell>
-          <Cell>{user.createdAt}</Cell>
-          <Cell>{user.updatedAt}</Cell>
-        </Row>
-      {/each}
+        {#each users as user (user.id)}
+          <Row>
+            <Cell numeric>{user.id}</Cell>
+            <Cell>{user.name}</Cell>
+            <Cell>{user.email}</Cell>
+            <Cell>{user.password}</Cell>
+            <Cell>
+              <Time relative timestamp={user.createdAt} />
+            </Cell>
+            <Cell>
+              <Time relative timestamp={user.updatedAt} />
+            </Cell>
+            <Cell>
+              <Group>
+                <IconButton class="material-icons" href="/">
+                  search
+                </IconButton>
+                <IconButton class="material-icons" href="/">delete</IconButton>
+              </Group>
+            </Cell>
+          </Row>
+        {/each}
       </Body>
     </DataTable>
-
   {/if}
 </section>
 
 <style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
+  section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 0.6;
+  }
 </style>

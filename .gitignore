@@ -333,3 +333,6 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/node,linux,macos,dotenv,svelte,windows,intellij+all,visualstudiocode
 /.idea/codeStyles/
+/test-results/
+/playwright-report/
+/playwright/.cache/

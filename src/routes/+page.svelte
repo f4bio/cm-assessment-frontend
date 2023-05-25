@@ -6,7 +6,7 @@
   import { onMount } from "svelte";
   import { faker } from "@faker-js/faker";
   import Time from "svelte-time";
-  import { Group, Label } from "@smui/button";
+  import Button, { Group, Label } from '@smui/button';
   import Fab, { Icon } from "@smui/fab";
   import IconButton from "@smui/icon-button";
   import DataTable, { Body, Cell, Head, Row } from "@smui/data-table";
@@ -142,6 +142,9 @@
               <Time relative timestamp={user.updatedAt} />
             </Cell>
             <Cell>
+              <Button on:click={() => clicked++}>
+                <Label>Default</Label>
+              </Button>
               <Group>
                 <IconButton class="material-icons" href="/">
                   search

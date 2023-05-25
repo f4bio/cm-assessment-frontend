@@ -6,7 +6,9 @@
 		"build": "npx vite build",
 		"preview": "npx vite preview",
 		"check": "npx svelte-kit sync && npx svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "npx svelte-kit sync && npx svelte-check --tsconfig ./tsconfig.json --watch"
+		"check:watch": "npx svelte-kit sync && npx svelte-check --tsconfig ./tsconfig.json --watch",
+		"prepare": "npm run smui-theme",
+		"smui-theme": "npx smui-theme compile static/smui.css -i src/theme"
 	},
 	"type": "module",
 	"devDependencies": {

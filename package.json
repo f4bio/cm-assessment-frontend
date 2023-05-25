@@ -1,13 +1,13 @@
 {
-  "name": "my-app",
+  "name": "cm-assessment-frontend",
   "version": "0.0.1",
   "scripts": {
     "dev": "npx vite dev",
     "build": "npx vite build",
     "preview": "npx vite preview",
     "test": "npx playwright test",
-    "check": "npx svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "npx svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "check": "npx svelte-kit sync && npx svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "npx svelte-kit sync && npx svelte-check --tsconfig ./tsconfig.json --watch",
     "test:unit": "npx vitest",
     "lint": "npx prettier --plugin-search-dir . --check . && eslint .",
     "format": "npx prettier --plugin-search-dir . --write .",

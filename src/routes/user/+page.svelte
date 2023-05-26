@@ -3,6 +3,11 @@
 	<meta name="description" content="About this User" />
 </svelte:head>
 
+<script>
+  /** @type {import('./$types').PageData} */
+  export let data;
+</script>
+
 <div class="text-column">
 	<h1>User #1337</h1>
 

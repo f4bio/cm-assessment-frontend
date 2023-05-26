@@ -1,12 +1,10 @@
-// eslint-disable @typescript-eslint/no-explicit-any
-
 <script>
   // import Counter from './Counter.svelte';
   import { UserRestClient } from "../UserRestClient";
   import { onMount } from "svelte";
   import { faker } from "@faker-js/faker";
   import Time from "svelte-time";
-  import Button, { Group, Label } from '@smui/button';
+  import Button, { Group, Label } from "@smui/button";
   import Fab, { Icon } from "@smui/fab";
   import IconButton from "@smui/icon-button";
   import DataTable, { Body, Cell, Head, Row } from "@smui/data-table";
@@ -60,6 +58,8 @@
   // - modify user
   // - delete user
 </script>
+
+// eslint-disable @typescript-eslint/no-explicit-any
 
 <svelte:head>
   <title>Home</title>
@@ -130,7 +130,7 @@
       </Head>
       <Body>
         {#each users as user (user.id)}
-          <Row>
+          <Row on:click={() => (window.location.href = `/user?id=${user.id}`)}>
             <Cell numeric>{user.id}</Cell>
             <Cell>{user.name}</Cell>
             <Cell>{user.email}</Cell>
@@ -142,15 +142,9 @@
               <Time relative timestamp={user.updatedAt} />
             </Cell>
             <Cell>
-              <Button on:click={() => clicked++}>
-                <Label>Default</Label>
-              </Button>
-              <Group>
-                <IconButton class="material-icons" href="/">
-                  search
-                </IconButton>
-                <IconButton class="material-icons" href="/">delete</IconButton>
-              </Group>
+              <IconButton class="material-icons" on:click={() => clicked++}
+                >delete</IconButton
+              >
             </Cell>
           </Row>
         {/each}

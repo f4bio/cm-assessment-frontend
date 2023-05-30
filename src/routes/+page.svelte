@@ -4,7 +4,7 @@
   import { onMount } from "svelte";
   import { faker } from "@faker-js/faker";
   import Time from "svelte-time";
-  import Button, { Group, Label } from "@smui/button";
+  import { Label } from "@smui/button";
   import Fab, { Icon } from "@smui/fab";
   import IconButton from "@smui/icon-button";
   import DataTable, { Body, Cell, Head, Row } from "@smui/data-table";
@@ -58,8 +58,6 @@
   // - modify user
   // - delete user
 </script>
-
-// eslint-disable @typescript-eslint/no-explicit-any
 
 <svelte:head>
   <title>Home</title>

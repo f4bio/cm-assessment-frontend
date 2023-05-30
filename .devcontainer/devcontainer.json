@@ -1,6 +1,6 @@
 {
   "name": "CM Assessment (Svelte)",
-  "dockerFile": "Dockerfile",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:0-18-bullseye",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -8,8 +8,5 @@
       ]
     }
   },
-  "forwardPorts": [
-    5000
-  ],
   "postCreateCommand": "npm install"
 }
